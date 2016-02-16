@@ -1,22 +1,23 @@
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.Comparator;
 
 /**
  * Created by PiratePowWow on 2/15/16.
  */
-public class Person {
+public class Person implements Comparable{
     private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String country;
-    private InetAddress[] ip;
+    private String ip;
 
     public Person(){
 
     }
 
-    public Person(int id, String firstName, String lastName, String email, String country, InetAddress[] ip) {
+    public Person(int id, String firstName, String lastName, String email, String country, String ip) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,15 +27,14 @@ public class Person {
     }
 
     @Override
+    public int compareTo(Object o){
+        Person p = (Person) o;
+        return lastName.compareTo(p.lastName);
+    }
+
+    @Override
     public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", country='" + country + '\'' +
-                ", ip=" + ip +
-                '}';
+        return this.firstName + " " + this.lastName + " from " + this.country + "\n";
     }
 
     public int getId() {
@@ -77,11 +77,11 @@ public class Person {
         this.country = country;
     }
 
-    public InetAddress[] getIp() {
+    public String getIp() {
         return ip;
     }
 
-    public void setIp(InetAddress[] ip) {
+    public void setIp(String ip) {
         this.ip = ip;
     }
 }
