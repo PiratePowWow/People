@@ -1,3 +1,4 @@
+import jodd.json.JsonSerializer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,20 +6,22 @@ import java.io.IOException;
 import java.util.*;
 
 public class People {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         String fileName = "people.csv";
         HashMap populations = readFile(fileName);
         populations = sortByLastName(populations);
         String jsonFile = "people.json";
+        outputToJson(populations, jsonFile);
         System.out.println(populations);
-
     }
 
     static void outputToJson(HashMap<String, ArrayList<Person>> populations, String jsonFile) throws IOException {
-        File f = new File(jsonFile);
-        FileWriter fw = new FileWriter(f);
-
-
+        File j = new File(jsonFile);
+        FileWriter fw = new FileWriter(j);
+        JsonSerializer serializer = new JsonSerializer();
+        String json = serializer.deep(true).serialize(populations);
+        fw.write(json);
+        fw.close();
     }
 
     static HashMap sortByLastName(HashMap<String, ArrayList<Person>> populations){

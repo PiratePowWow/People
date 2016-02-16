@@ -29,6 +29,9 @@ public class Person implements Comparable{
     @Override
     public int compareTo(Object o){
         Person p = (Person) o;
+        if (lastName.equals(p.lastName)){
+            return firstName.compareTo(p.firstName);
+        }
         return lastName.compareTo(p.lastName);
     }
 
